@@ -25,7 +25,6 @@ def del_dir(path):
 @db.message_handler(commands=["start"])
 async def start(message: types.message):
     """The start method"""
-
     me = await bot.get_me()
     await message.answer('Я {} бот созданый с прихоти создателя для облегчения посылки дз 😜\n Введите /help для '
                          'получениия большей информации'.format(me.first_name))
@@ -50,6 +49,8 @@ async def home_task(message):
 async def end(message):
     global make_pdf, photo_for_file
     if make_pdf:
+        if not os.path.exists('Images'):
+            os.mkdir('Images')
         path = 'Images\{}'.format(message.from_user.id)
         if os.path.exists(path):
             del_dir(path)
